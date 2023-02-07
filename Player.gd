@@ -1,37 +1,38 @@
 extends KinematicBody2D
 
-const GRAVITY = 8
 var velocity = Vector2()
-var SPEED = 80.0
-var JUMP_X_SPEED = SPEED * .66
+
+export(float, 0.5, 2.0, 0.1) var speed_factor = 1.0
+export(float, 0.5, 2.0, 0.1) var jump_y_factor = 1.5
+export(float, 0.1, 1.0, 0.1) var jump_x_factor = 0.66
+export(float, 5.0, 50.0, 1.0) var accel_factor = 10.0
+export(float, 1.0, 40.0, 1.0) var drag_x_factor = 20.0
+
+var SPEED = Globals.BASE_SPEED * speed_factor
+var JUMP_Y_SPEED = SPEED * jump_y_factor
+var JUMP_X_SPEED = SPEED * jump_x_factor
+var ACCELERATION = SPEED / accel_factor
+var DRAG_X = SPEED / drag_x_factor
 
 func _physics_process(_delta):
-	var action_right = Input.is_action_pressed("run_right")
-	var action_left = Input.is_action_pressed("run_left")
-	
 	var action_jump = Input.is_action_just_pressed("action_jump")
+	var action_x = float(Input.is_action_pressed("run_right")) - float(Input.is_action_pressed("run_left"))
 	
 	if is_on_floor():
-		if action_right and !action_left:
-			velocity.x = SPEED
-		elif action_left and !action_right:
-			velocity.x = -SPEED
-		else:
-			velocity.x = lerp(velocity.x, 0, 0.1)
-			
-		if (action_right or action_left):
+		if action_x:
+			velocity.x = move_toward(velocity.x, SPEED * action_x, ACCELERATION)
+			$AnimatedSprite.flip_h = action_x < 0
 			$AnimationPlayer.play("steps")
-		
-		$AnimatedSprite.flip_h = velocity.x < 0
+		else:
+			velocity.x = move_toward(velocity.x, 0, DRAG_X)
+			if !$AnimationPlayer.is_playing():
+				$AnimationPlayer.play("idle")
 		
 		if action_jump:
-			velocity.y = -150
+			velocity.y = -JUMP_Y_SPEED
 			$AnimationPlayer.play("jump")
 	else:
-		velocity.y += GRAVITY
-		if action_right and !$AnimatedSprite.flip_h:
-			velocity.x = JUMP_X_SPEED
-		elif action_left and $AnimatedSprite.flip_h:
-			velocity.x = -JUMP_X_SPEED
-
+		velocity.y += Globals.GRAVITY
+		if action_x and sign(action_x) == sign(velocity.x):
+			velocity.x = JUMP_X_SPEED * action_x
 	velocity = move_and_slide(velocity, Vector2.UP)
