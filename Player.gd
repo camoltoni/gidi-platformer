@@ -24,7 +24,7 @@ func _physics_process(_delta):
 			$AnimatedSprite.flip_h = action_x < 0
 			$AnimationPlayer.play("steps")
 		else:
-			velocity.x = move_toward(velocity.x, 0, DRAG_X)
+			velocity.x = move_toward(velocity.x, 0.0, DRAG_X)
 			if !$AnimationPlayer.is_playing():
 				$AnimationPlayer.play("idle")
 		
@@ -33,6 +33,6 @@ func _physics_process(_delta):
 			$AnimationPlayer.play("jump")
 	else:
 		velocity.y += Globals.GRAVITY
-		if action_x and sign(action_x) == sign(velocity.x):
+		if action_x and sign(action_x) == (-1 if $AnimatedSprite.flip_h else 1):
 			velocity.x = JUMP_X_SPEED * action_x
 	velocity = move_and_slide(velocity, Vector2.UP)
