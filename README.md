@@ -18,6 +18,12 @@ A classic platform game, made with Godot 3.5.1
 * ~~Export variables to edit player parameters~~
 * ~~Added idle animation to player~~
 
+### Devlog 3
+
+* ~~Added level with Tiled importer plugin~~
+* ~~Added camera 2d to the player.~~
+* ~~Settled limits to the camera.~~
+
 
 ## Work in progress
 - Add tilemap

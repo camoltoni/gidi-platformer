@@ -26,6 +26,10 @@ window/size/test_width=960
 window/size/test_height=540
 window/stretch/mode="2d"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/vnen.tiled_importer/plugin.cfg" )
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
@@ -86,3 +90,7 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 environment/default_environment="res://default_env.tres"
+
+[tiled_importer]
+
+enable_json_format=true
