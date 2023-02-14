@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://map/level1.tmx" type="PackedScene" id=1]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://admiralbob77_-_Funky_Thanksgiving_1.mp3" type="AudioStream" id=3]
+[ext_resource path="res://Levels/Level1.tmx" type="PackedScene" id=1]
+[ext_resource path="res://Characters/Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Sound/admiralbob77_-_Funky_Thanksgiving_1.mp3" type="AudioStream" id=3]
 
 [node name="World" type="Node2D"]
 __meta__ = {

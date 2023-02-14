@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/admiralbob77_-_Funky_Thanksgiving_1.mp3-f9f90bd9b2cc0a90a69f2d7a60553558.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/admiralbob77_-_Funky_Thanksgiving_1.mp3"
+dest_files=[ "res://.import/admiralbob77_-_Funky_Thanksgiving_1.mp3-f9f90bd9b2cc0a90a69f2d7a60553558.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

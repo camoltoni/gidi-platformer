@@ -2,12 +2,12 @@
 
 importer="vnen.tiled_tileset_importer"
 type="TileSet"
-path="res://.import/Terrain.tsx-43f833e26d5dc5d284e2f4f29eabb236.res"
+path="res://.import/Terrain.tsx-7bc21037af724f103f151a121b580939.res"
 
 [deps]
 
-source_file="res://map/Terrain.tsx"
-dest_files=[ "res://.import/Terrain.tsx-43f833e26d5dc5d284e2f4f29eabb236.res" ]
+source_file="res://Levels/Terrain.tsx"
+dest_files=[ "res://.import/Terrain.tsx-7bc21037af724f103f151a121b580939.res" ]
 
 [params]
 

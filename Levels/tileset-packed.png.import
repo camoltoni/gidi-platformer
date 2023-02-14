@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/payer-spsh.png-ee18f6a94c22035c15a5b267961af651.stex"
+path="res://.import/tileset-packed.png-311d5c5e2c92a6d50bb9e8dce8bba82a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://payer-spsh.png"
-dest_files=[ "res://.import/payer-spsh.png-ee18f6a94c22035c15a5b267961af651.stex" ]
+source_file="res://Levels/tileset-packed.png"
+dest_files=[ "res://.import/tileset-packed.png-311d5c5e2c92a6d50bb9e8dce8bba82a.stex" ]
 
 [params]
 
