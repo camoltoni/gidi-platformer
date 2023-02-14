@@ -1,5 +1,9 @@
 extends KinematicBody2D
 
+enum States {AIR, FLOOR, LADDER, WALL}
+
+var state = States.AIR
+
 var velocity = Vector2()
 
 export(float, 0.5, 2.0, 0.1) var speed_factor = 1.0
@@ -17,27 +21,37 @@ var DRAG_X = SPEED / drag_x_factor
 var isOnFloor = false
 
 func _physics_process(_delta):
+	
 	var action_jump = Input.is_action_just_pressed("action_jump")
 	var action_x = float(Input.is_action_pressed("run_right")) - float(Input.is_action_pressed("run_left"))
 	
-	if is_on_floor():
-		if action_x:
-			velocity.x = move_toward(velocity.x, SPEED * action_x, ACCELERATION)
-			$AnimatedSprite.flip_h = action_x < 0
-			$AnimationPlayer.play("steps")
-		else:
-			velocity.x = move_toward(velocity.x, 0.0, DRAG_X)
-			if !$AnimationPlayer.is_playing():
-				$AnimationPlayer.play("idle")
-		
-		if action_jump:
-			velocity.y = -JUMP_Y_SPEED
-			$AnimationPlayer.play("jump")
-	else:
-		velocity.y += Globals.GRAVITY
-		if action_x and sign(action_x) == (-1 if $AnimatedSprite.flip_h else 1):
-			velocity.x = JUMP_X_SPEED * action_x
+	match state:
+		States.AIR:
+			if is_on_floor():
+				state = States.FLOOR
+			else:
+				if action_x and sign(action_x) == (-1 if $AnimatedSprite.flip_h else 1):
+					velocity.x = JUMP_X_SPEED * action_x
+		States.FLOOR:
+			if action_jump:
+				velocity.y = -JUMP_Y_SPEED
+				$AnimationPlayer.play("jump")
+				state = States.AIR
+			else:
+				if action_x:
+					velocity.x = move_toward(velocity.x, SPEED * action_x, ACCELERATION)
+					$AnimatedSprite.flip_h = action_x < 0
+					$AnimationPlayer.play("steps")
+				else:
+					velocity.x = move_toward(velocity.x, 0.0, DRAG_X)
+					if !$AnimationPlayer.is_playing():
+						$AnimationPlayer.play("idle")
+		States.LADDER:
+			pass
+		States.WALL:
+			pass
+	
+	velocity.y += Globals.GRAVITY
 	velocity = move_and_slide(velocity, Vector2.UP, false, 2, 0.5)
 	var col_shape = $CollisionShape2D.shape as CapsuleShape2D
 	position.x = clamp(position.x, col_shape.radius, 960 - col_shape.radius)
-	
